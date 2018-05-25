@@ -1,5 +1,9 @@
 # Wharel
 
+[![Build Status](https://travis-ci.org/shioyama/wharel.svg?branch=master)][travis]
+
+[travis]: https://travis-ci.org/shioyama/wharel
+
 Wharel helps you write concise Arel queries with ActiveRecord using Virtual
 Rows inspired by
 [Sequel](http://sequel.jeremyevans.net/rdoc/files/doc/virtual_rows_rdoc.html).
