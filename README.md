@@ -1,8 +1,8 @@
 # Wharel
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wharel`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Wharel helps you write concise Arel queries with ActiveRecord using Virtual
+Rows inspired by
+[Sequel](http://sequel.jeremyevans.net/rdoc/files/doc/virtual_rows_rdoc.html).
 
 ## Installation
 
@@ -22,13 +22,64 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Suppose we have a model `Post`:
 
-## Development
+```ruby
+class Post < ApplicationRecord
+  has_many :comments
+end
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+And let's assume our `Post` has columns `title` and `content`.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Now, if we wanted to find all the posts with a title which matched the string
+"foo" and content which matched the string "bar", we'd have to resort to
+something like this:
+
+```ruby
+title = Post.arel_table[:title]
+content = Post.arel_table[:content]
+Post.where(title.matches("foo").and(content.matches("bar")))
+```
+
+With Wharel, you can drop the boilerplate and just use a block:
+
+```ruby
+Post.where { title.matches("foo").and(content.matches("bar")) }
+```
+
+Wharel will map `title` and `content` in the block to the appropriate Arel
+attribute for the column.
+
+Now suppose we have another model `Comment` with a column `content`, and a
+`Post` `has_many :comments`:
+
+```ruby
+class Post < ApplicationRecord
+  has_many :comments
+end
+
+class Comment < ApplicationRecord
+  belongs_to :post
+end
+```
+
+Now we want to find all comments which reference the title of a post. With
+standard Arel, you could do this with:
+
+```ruby
+posts = Post.arel_table
+comments = Comment.arel_table
+Comment.where(comments[:content].matches(posts[:title]))
+```
+
+Using Wharel, you can pass an argument to blocks to handle this case:
+
+```ruby
+Comment.where { |c| Post.where { |p| c.content.matches(p.title) } }
+```
+
+Much better!
 
 ## Contributing
 
