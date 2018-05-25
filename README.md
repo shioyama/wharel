@@ -8,8 +8,10 @@ Although similar in spirit to gems like
 [Squeel](https://github.com/activerecord-hackery/squeel) and
 [BabySqueel](https://github.com/rzane/baby_squeel), which provide sophisticated
 block-based interfaces for querying with Arel, Wharel is much much smaller. In
-fact, the core of the gem is only 25 lines long! It uses a single `BasicObject`
-as a [clean room](https://www.sethvargo.com/the-cleanroom-pattern/) to evaluate
+fact, the core of the gem is only [25 lines
+long](https://github.com/shioyama/wharel/blob/master/lib/wharel.rb)! It uses a
+single `BasicObject` as a [clean
+room](https://www.sethvargo.com/the-cleanroom-pattern/) to evaluate
 the query block. That's really all there is to it.
 
 ## Installation
