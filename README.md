@@ -23,7 +23,7 @@ the query block. That's really all there is to it.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wharel'
+gem 'wharel', '~> 0.2.0'
 ```
 
 And then execute:
@@ -64,6 +64,12 @@ Post.where { title.matches("foo").and(content.matches("bar")) }
 
 Wharel will map `title` and `content` in the block to the appropriate Arel
 attribute for the column.
+
+Works with `where.not` too:
+
+```ruby
+Post.where.not { title.eq("foo") }
+```
 
 Now suppose we have another model `Comment` with a column `content`, and a
 `Post` `has_many :comments`:
