@@ -26,7 +26,7 @@ module Wharel
     class << self
       def build_query(klass, &block)
         row = new(klass)
-        query = (block.arity == 0) ? row.instance_eval(&block) : block.call(row)
+        query = block.arity.zero? ? row.instance_eval(&block) : block.call(row)
         ::ActiveRecord::Relation === query ? query.arel.constraints.inject(&:and) : query
       end
     end
