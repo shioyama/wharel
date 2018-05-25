@@ -6,6 +6,12 @@ module Wharel
     def where(opts = :chain, *rest, &block)
       block_given? ? super(VirtualRow.build_query(self, &block)) : super
     end
+
+    module WhereChain
+      def not(*args, &block)
+        block_given? ? super(VirtualRow.build_query(@scope, &block)) : super
+      end
+    end
   end
 
   class VirtualRow < BasicObject
@@ -30,3 +36,4 @@ end
 # Monkey-patch ActiveRecord. Should make this optional.
 ::ActiveRecord::Base.singleton_class.prepend ::Wharel::QueryMethods
 ::ActiveRecord::Relation.prepend ::Wharel::QueryMethods
+::ActiveRecord::QueryMethods::WhereChain.prepend ::Wharel::QueryMethods::WhereChain
