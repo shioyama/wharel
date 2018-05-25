@@ -74,19 +74,19 @@ class Comment < ApplicationRecord
 end
 ```
 
-Now we want to find all comments which reference the title of a post. With
-standard Arel, you could do this with:
+Now we want to find all comments which match the title of the comment's post.
+With standard Arel, you could do this with:
 
 ```ruby
 posts = Post.arel_table
 comments = Comment.arel_table
-Comment.where(comments[:content].matches(posts[:title]))
+Comment.joins(:post).where(comments[:content].matches(posts[:title]))
 ```
 
 Using Wharel, you can pass an argument to blocks to handle this case:
 
 ```ruby
-Comment.where { |c| Post.where { |p| c.content.matches(p.title) } }
+Comment.joins(:post).where { |c| Post.where { |p| c.content.matches(p.title) } }
 ```
 
 Much better!
