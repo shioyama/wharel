@@ -18,6 +18,9 @@ single `BasicObject` as a [clean
 room](https://www.sethvargo.com/the-cleanroom-pattern/) to evaluate
 the query block. That's really all there is to it.
 
+For a more detailed explanation of the implementation, see [this blog
+post](https://dejimata.com/2018/5/30/arel-with-wharel).
+
 ## Installation
 
 Add this line to your application's Gemfile:
