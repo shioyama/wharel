@@ -74,6 +74,12 @@ Works with `where.not` too:
 Post.where.not { title.eq("foo") }
 ```
 
+... and also with `order`:
+
+```ruby
+Post.order { title.lower }
+```
+
 Now suppose we have another model `Comment` with a column `content`, and a
 `Post` `has_many :comments`:
 
