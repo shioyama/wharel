@@ -7,6 +7,10 @@ module Wharel
       block_given? ? super(VirtualRow.build_query(self, &block)) : super
     end
 
+    def order(*args, &block)
+      block_given? ? super(VirtualRow.build_query(self, &block)) : super
+    end
+
     module WhereChain
       def not(*args, &block)
         block_given? ? super(VirtualRow.build_query(@scope, &block)) : super

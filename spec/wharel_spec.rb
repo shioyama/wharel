@@ -47,6 +47,16 @@ RSpec.describe Wharel do
     end
   end
 
+  describe "Relation#order" do
+    it "works with block format" do
+      post1 = Post.create(title: "Z")
+      post2 = Post.create(title: "a")
+
+      expect(Post.order { title }).to eq([post1, post2])
+      expect(Post.order { title.lower }).to eq([post2, post1])
+    end
+  end
+
   describe "WhereChain#not" do
     it "works with block format" do
       post = Post.create(title: "This Wharel!")
