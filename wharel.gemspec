@@ -30,7 +30,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "sqlite3"
   spec.add_development_dependency "database_cleaner"
-
-  spec.cert_chain = ["certs/shioyama.pem"]
-  spec.signing_key = File.expand_path("~/.ssh/gem-private_key.pem") if $0 =~ /gem\z/
 end
