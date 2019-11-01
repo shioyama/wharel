@@ -1,7 +1,9 @@
 # Wharel
 
+[![Gem Version](https://badge.fury.io/rb/wharel.svg)][gem]
 [![Build Status](https://travis-ci.org/shioyama/wharel.svg?branch=master)][travis]
 
+[gem]: https://rubygems.org/gems/wharel
 [travis]: https://travis-ci.org/shioyama/wharel
 
 Wharel helps you write concise Arel queries with ActiveRecord using Virtual
