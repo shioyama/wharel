@@ -3,12 +3,16 @@ require "active_record"
 
 module Wharel
   module QueryMethods
-    def where(opts = :chain, *rest, &block)
-      block_given? ? super(VirtualRow.build_query(self, &block)) : super
+    %w[where order having pluck group].each do |method_name|
+      module_eval <<-EOM, __FILE__, __LINE__ + 1
+      def #{method_name}(*, &block)
+        block_given? ? super(VirtualRow.build_query(self, &block)) : super
+      end
+      EOM
     end
 
-    def order(*args, &block)
-      block_given? ? super(VirtualRow.build_query(self, &block)) : super
+    def or(*, &block)
+      block_given? ? super(model.where(VirtualRow.build_query(self, &block))) : super
     end
 
     module WhereChain
