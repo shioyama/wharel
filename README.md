@@ -70,17 +70,19 @@ Post.where { title.matches("foo").and(content.matches("bar")) }
 Wharel will map `title` and `content` in the block to the appropriate Arel
 attribute for the column.
 
-Works with `where.not` too:
+Wharel also supports most other query methods, e.g. `not`:
 
 ```ruby
 Post.where.not { title.eq("foo") }
 ```
 
-... and also with `order`:
+... and `order`:
 
 ```ruby
 Post.order { title.lower }
 ```
+
+Wharel also supports `having`, `pluck`, `group` and `or` in the same way.
 
 Now suppose we have another model `Comment` with a column `content`, and a
 `Post` `has_many :comments`:
