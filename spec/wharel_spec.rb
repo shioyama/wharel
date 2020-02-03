@@ -29,6 +29,19 @@ RSpec.describe Wharel do
     end
   end
 
+  describe "Relation#select" do
+    let!(:post1) { Post.create(title: "foo", content: "baz") }
+    let!(:post2) { Post.create(title: "Bar", content: "baz") }
+
+    it "works with block format" do
+      expect(Post.select { title.lower.as("title") }.map(&:title)).to match_array(%w[foo bar])
+    end
+
+    it "works without block format" do
+      expect(Post.select(:title).map(&:title)).to match_array(%w[foo Bar])
+    end
+  end
+
   describe "Relation#where" do
     it "works with block format" do
       Post.create # shouldn't match this one!

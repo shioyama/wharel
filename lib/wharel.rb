@@ -3,10 +3,10 @@ require "active_record"
 
 module Wharel
   module QueryMethods
-    %w[where order having pluck group].each do |method_name|
+    %w[select where order having pluck group].each do |method_name|
       module_eval <<-EOM, __FILE__, __LINE__ + 1
       def #{method_name}(*, &block)
-        block_given? ? super(VirtualRow.build_query(self, &block)) : super
+        block_given? ? super(VirtualRow.build_query(self, &block), &nil) : super
       end
       EOM
     end
