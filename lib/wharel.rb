@@ -3,7 +3,9 @@ require "active_record"
 
 module Wharel
   module QueryMethods
-    %w[select where order having pluck group].each do |method_name|
+    %w[select where order having pluck pick group].each do |method_name|
+      next unless ::ActiveRecord::Base.singleton_class.method_defined?(method_name)
+
       module_eval <<-EOM, __FILE__, __LINE__ + 1
       def #{method_name}(*, &block)
         block_given? ? super(VirtualRow.build_query(self, &block), &nil) : super

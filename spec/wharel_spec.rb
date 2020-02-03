@@ -119,6 +119,20 @@ RSpec.describe Wharel do
     end
   end
 
+  if ActiveRecord::VERSION::MAJOR >= 6
+    describe "Relation#pick" do
+      let!(:post) { Post.create(title: "Foo") }
+
+      it "works with block format" do
+        expect(Post.pick { title.lower }).to eq("foo")
+      end
+
+      it "works without block format" do
+        expect(Post.pick("LOWER(title)")).to eq("foo")
+      end
+    end
+  end
+
   describe 'Relation#or' do
     let!(:post1) { Post.create(title: 'This Wharel!') }
     let!(:post2) { Post.create(title: 'Not this Wharel!') }

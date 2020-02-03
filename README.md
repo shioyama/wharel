@@ -82,7 +82,7 @@ Post.where.not { title.eq("foo") }
 Post.order { title.lower }
 ```
 
-Wharel also supports `select`, `having`, `pluck`, `group` and `or` in the same way.
+Wharel also supports `select`, `having`, `pluck`, `pick`, `group` and `or` in the same way.
 
 Now suppose we have another model `Comment` with a column `content`, and a
 `Post` `has_many :comments`:
