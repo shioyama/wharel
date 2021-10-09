@@ -28,7 +28,7 @@ post](https://dejimata.com/2018/5/30/arel-with-wharel).
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'wharel', '~> 0.5.0'
+gem 'wharel', '~> 1.0.0'
 ```
 
 And then execute:
