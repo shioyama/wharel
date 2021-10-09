@@ -11,8 +11,6 @@ case (ENV['RAILS_VERSION'] || '6.0')
 when '5.2'
   gem 'activerecord', '~> 5.2'
   gem 'sqlite3', '~> 1.3.13'
-when '6.0'
-  gem 'activerecord', '~> 6.0'
 else
-  raise ArgumentError, 'invalid Rails version'
+  gem 'activerecord', "~> #{ENV['RAILS_VERSION']}"
 end

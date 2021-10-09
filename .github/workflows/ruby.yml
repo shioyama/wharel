@@ -20,6 +20,10 @@ jobs:
     strategy:
       matrix:
         ruby-version: ['2.6', '2.7', '3.0']
+        rails-version: ['5.2', '6.0', '6.1']
+        exclude:
+          - ruby-version: '3.0'
+            rails-version: '5.2'
 
     steps:
     - uses: actions/checkout@v2
@@ -33,3 +37,5 @@ jobs:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
       run: bundle exec rake
+    env:
+      RAILS_VERSION: ${{ matrix.rails-version }}
